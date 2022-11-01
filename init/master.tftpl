@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+
+curl -sfL https://get.k3s.io | K3S_TOKEN=${k3s_token_for_demo} INSTALL_K3S_VERSION=v1.25.3+k3s1 sh -
+sudo kubectl taint node "$(hostname)" node-role.kubernetes.io/master:NoSchedule
