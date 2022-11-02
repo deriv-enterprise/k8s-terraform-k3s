@@ -1,9 +1,25 @@
-data "aws_ami" "debian" {
+data "aws_ami" "debian_amd64" {
   most_recent = true
 
   filter {
     name   = "name"
     values = ["debian-11-amd64-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["136693071363"]
+}
+
+data "aws_ami" "debian_arm64" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["debian-11-arm64-*"]
   }
 
   filter {

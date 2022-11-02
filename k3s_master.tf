@@ -8,7 +8,7 @@ locals {
 
 
 resource "aws_instance" "master" {
-  ami           = data.aws_ami.debian.id
+  ami           = data.aws_ami.debian_amd64.id
   instance_type = "t3.medium"
   user_data     = local.master_init
   key_name      = aws_key_pair.master.key_name
