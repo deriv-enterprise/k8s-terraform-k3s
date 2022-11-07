@@ -26,3 +26,7 @@ resource "aws_instance" "workers_arm64_medium" {
 output "workers_arm64_public_ip" {
   value = aws_instance.workers_arm64_medium[*].public_ip
 }
+
+output "workers_arm64_private_ip" {
+  value = aws_instance.workers_arm64_medium[*].private_ip
+}

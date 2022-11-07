@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-curl -sfL https://get.k3s.io | K3S_TOKEN=${k3s_token_for_demo} INSTALL_K3S_VERSION=v1.25.3+k3s1 sh -s - --node-taint node-role.kubernetes.io/master:NoSchedule
+apt-get update && apt-get install -y git curl
+
+# Install k3s
+curl -sfL https://get.k3s.io | K3S_TOKEN=${k3s_token_for_demo} INSTALL_K3S_VERSION=v1.25.3+k3s1 sh -s - --node-taint node-role.kubernetes.io/master:NoSchedule --write-kubeconfig-mode 644
+
+mkdir /home/admin/.kube
+cp /etc/rancher/k3s/k3s.yaml /home/admin/.kube/config
+chown admin:admin /home/admin/.kube -R
+chmod 700 /home/admin/.kube
+chmod 600 /home/admin/.kube/config
+
+# Install helm
+curl -sfL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash -
+
+sudo -u admin helm plugin install https://github.com/databus23/helm-diff
